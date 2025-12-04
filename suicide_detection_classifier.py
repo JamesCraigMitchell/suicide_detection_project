@@ -2,6 +2,10 @@ import re
 import nltk
 import pandas as pd
 import matplotlib
+
+# Set up matplotlib to use Agg backend
+matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
@@ -13,18 +17,10 @@ from sklearn.ensemble import RandomForestClassifier, StackingClassifier
 from sklearn.metrics import classification_report, accuracy_score, ConfusionMatrixDisplay, confusion_matrix
 import joblib
 
-# Set up matplotlib to use TkAgg backend
-matplotlib.use('TkAgg')
-
-# Download NLTK data
-nltk.download('punkt')
-nltk.download('stopwords')
-
 # Section 1 - Data Collection and Preprocessing
 
 # Loading the dataset. "r" at the start ensures that single backslashes can be used as it is a raw string
-df = pd.read_csv(r"C:\Users\User\OneDrive - University of Huddersfield\Year 2 Software Engineering\Introduction to "
-                 r"AI\Suicide_Detection.csv")
+df = pd.read_csv("Suicide_Detection.csv")
 
 # Alternatively, the dataset URL = https://www.kaggle.com/datasets/nikhileswarkomati/suicide-watch
 
@@ -208,7 +204,8 @@ def plot_confusion_matrices():  # Function to plot the confusion matrices
         disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
         disp.plot(cmap=plt.cm.Blues)
         plt.title(f'{names} Confusion Matrix')
-        plt.show()
+        plt.savefig(f'{names}_confusion_matrix.png') # Save to unique file
+        plt.close() # Close the figure to free memory
 
 
 plot_confusion_matrices()
@@ -248,7 +245,8 @@ def plot_feature_importance_rf(model, X_train_df, top_n=20):
     plt.barh(importance_df['Feature'], importance_df['Importance'], color='skyblue')
     plt.xlabel('Importance')
     plt.title(f'Random Forest - Top {top_n} Features')
-    plt.show()
+    plt.savefig('random_forest_feature_importance.png') # Save to unique file
+    plt.close() # Close the figure
 
 
 # Plot the top 20 features
