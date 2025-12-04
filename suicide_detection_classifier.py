@@ -204,7 +204,7 @@ def plot_confusion_matrices():  # Function to plot the confusion matrices
         disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
         disp.plot(cmap=plt.cm.Blues)
         plt.title(f'{names} Confusion Matrix')
-        plt.savefig(f'{names}_confusion_matrix.png') # Save to unique file
+        plt.savefig(f'/output/{names}_confusion_matrix.png') # Save to unique file
         plt.close() # Close the figure to free memory
 
 
@@ -245,7 +245,7 @@ def plot_feature_importance_rf(model, X_train_df, top_n=20):
     plt.barh(importance_df['Feature'], importance_df['Importance'], color='skyblue')
     plt.xlabel('Importance')
     plt.title(f'Random Forest - Top {top_n} Features')
-    plt.savefig('random_forest_feature_importance.png') # Save to unique file
+    plt.savefig(f'/output/random_forest_feature_importance.png') # Save to unique file
     plt.close() # Close the figure
 
 
